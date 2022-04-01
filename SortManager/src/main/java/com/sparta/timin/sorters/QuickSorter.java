@@ -2,7 +2,7 @@ package com.sparta.timin.sorters;
 
 public class QuickSorter implements Sorter{
 
-    public static int partition(int arr[], int low, int high)
+    public static int partition(int[] arr, int low, int high)
     {
         int pivot = arr[high];
         int i = (low-1); // index of smaller element
@@ -57,7 +57,6 @@ public class QuickSorter implements Sorter{
 
     @Override
     public int[] sortArray(int[] arrayToSort) {
-        quickSort(arrayToSort);
-        return arrayToSort;
+        return quickSort(arrayToSort);
     }
 }

@@ -16,8 +16,7 @@ public class BubbleSorter implements Sorter {
 
     @Override
     public int[] sortArray(int[] arrayToSort) {
-        bubbleSort(arrayToSort);
-        return arrayToSort;
+        return bubbleSort(arrayToSort);
     }
 
 

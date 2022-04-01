@@ -2,7 +2,7 @@ package com.sparta.timin.sorters;
 
 public class InsertionSorter implements Sorter {
 
-    public static int[] insertionSort(int arrayToSort[]){
+    public static int[] insertionSort(int[] arrayToSort){
         int n = arrayToSort.length;
         for (int i = 1; i < n; ++i) {
             int elementToPlace = arrayToSort[i];
@@ -19,7 +19,6 @@ public class InsertionSorter implements Sorter {
 
     @Override
     public int[] sortArray(int[] arrayToSort) {
-        insertionSort(arrayToSort);
-        return arrayToSort;
+        return insertionSort(arrayToSort);
     }
 }

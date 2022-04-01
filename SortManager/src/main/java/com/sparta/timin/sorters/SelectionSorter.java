@@ -2,7 +2,7 @@ package com.sparta.timin.sorters;
 
 public class SelectionSorter implements Sorter{
 
-    public static int[] selectionSort(int arrayToSort[]) {
+    public static int[] selectionSort(int[] arrayToSort) {
         int n = arrayToSort.length;
 
         // One by one move boundary of unsorted subarray
@@ -23,8 +23,7 @@ public class SelectionSorter implements Sorter{
 
     @Override
     public int[] sortArray(int[] arrayToSort) {
-        selectionSort(arrayToSort);
-        return arrayToSort;
+        return selectionSort(arrayToSort);
     }
 
 

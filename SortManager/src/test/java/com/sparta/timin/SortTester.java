@@ -14,12 +14,12 @@ public class SortTester {
 
     @Test
     void sortCheckerTrue() {
-        Assertions.assertEquals(true, SortChecker.isSorted(new int[]{1, 2, 2}));
+        Assertions.assertTrue(SortChecker.isSorted(new int[]{1, 2, 2}));
     }
 
     @Test
     void sortCheckerFalse() {
-        Assertions.assertEquals(false, SortChecker.isSorted(new int[]{3,2,2}));
+        Assertions.assertFalse(SortChecker.isSorted(new int[]{3, 2, 2}));
     }
 
     @Test
@@ -32,16 +32,15 @@ public class SortTester {
         Assertions.assertArrayEquals(new int[] {1,2,3}, SelectionSorter.selectionSort(new int[]{3,2,1}));
     }
 
-//    @Test
-//    void binaryTest() {
-//        Assertions.assertArrayEquals(new int[] {1,2,3}, BinarySorter.);
-//    }
+    @Test
+    void binaryTest() {
+        Assertions.assertArrayEquals(new int[] {1, 1, 2, 3, 4, 5}, BinarySorter.binarySort(new int[]{3, 2, 1, 5, 1, 4}));
+    }
 
     @Test
     void mergeTest() {
         Assertions.assertArrayEquals(new int[] {1,2,3,4,5,6}, MergeSorter.mergeSort(new int[] {6,4,3,5,2,1,}));
     }
-//I honestly cannot believe that worked...
 
     @Test
     void quickTest() {
@@ -53,6 +52,10 @@ public class SortTester {
         Assertions.assertArrayEquals(new int[] {5,6,6,6,6,6}, QuickSorter.quickSort(new int[] {6,6,6,6,6,5}));
     }
 
+    @Test
+    void bogoTest() {
+        Assertions.assertArrayEquals(new int[] {-1, 1,2,3,4,5,6, 8, 10, 18}, BogoSorter.bogoSort(new int[] {-1, 6,4,3,5,2,1,8,18, 10}));
+    }
 
 
 }

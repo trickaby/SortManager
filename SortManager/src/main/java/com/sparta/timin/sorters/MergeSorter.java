@@ -4,7 +4,7 @@ import com.sparta.timin.sorters.SortChecker;
 
 import java.util.Arrays;
 
-public class MergeSorter {
+public class MergeSorter implements Sorter{
 
     public static int[] mergeSort(int[] arrayToSort) {
         if(SortChecker.isSorted(arrayToSort)) return arrayToSort;
@@ -14,37 +14,41 @@ public class MergeSorter {
 
     //merges two SORTED arrays
     public static int[] merge(int[] sortedArray1, int[] sortedArray2) {
-        int[] MergedArray;
-        MergedArray = new int[sortedArray1.length + sortedArray2.length];
+        int[] mergedArray;
+        mergedArray = new int[sortedArray1.length + sortedArray2.length];
 
         int i = 0;
         int j = 0;
 
         while (i < sortedArray1.length && j < sortedArray2.length) {
             if(sortedArray1[i] > sortedArray2[j]) {
-                MergedArray[i+j] = sortedArray2[j];
+                mergedArray[i+j] = sortedArray2[j];
                 j++;
             }
             else{
-                MergedArray[i+j] = sortedArray1[i];
+                mergedArray[i+j] = sortedArray1[i];
                 i++;
             }
         }
 
         while (i < sortedArray1.length) {
-            MergedArray[i+j] = sortedArray1[i];
+            mergedArray[i+j] = sortedArray1[i];
             i++;
         }
 
         while (j < sortedArray2.length) {
-            MergedArray[i+j] = sortedArray2[j];
+            mergedArray[i+j] = sortedArray2[j];
             j++;
 
         }
 
-        return MergedArray;
+        return mergedArray;
 
 
     }
 
+    @Override
+    public int[] sortArray(int[] arrayToSort) {
+        return mergeSort(arrayToSort);
+    }
 }

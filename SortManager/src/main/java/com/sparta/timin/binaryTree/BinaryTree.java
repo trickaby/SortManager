@@ -5,18 +5,18 @@ import java.util.Arrays;
 public class BinaryTree implements BinaryTreeInterface {
     private final Node rootNode;
     private int numberOfElements;
-    int count;
-    int[] sortedTree;
+    private int count = 0;
+    int[] sortedTreeAsc;
+    int[] sortedTreeDesc;
 
-    public BinaryTree(final int element) {
-        rootNode = new Node(element);
+    public BinaryTree(int[] arrayToSort) {
+        rootNode = new Node(arrayToSort[0]);
+        numberOfElements = 1;
+        int[] restOfArray = Arrays.copyOfRange(arrayToSort, 1, arrayToSort.length);
+        addElements(restOfArray);
+        sortTreeAsc();
+        sortTreeDesc();
     }
-
-
-
-
-
-
 
     @Override
     public int getRootElement() {
@@ -30,8 +30,8 @@ public class BinaryTree implements BinaryTreeInterface {
 
     @Override
     public void addElements(int[] elements) {
-        for (int i=0; i< elements.length;i++ ) {
-            addElement(elements[i]);
+        for (int element : elements) {
+            addElement(element);
         }
     }
 
@@ -47,66 +47,75 @@ public class BinaryTree implements BinaryTreeInterface {
 
     @Override
     public int getLeftChild(int element) throws ChildNotFoundException {
-        if(rootNode.isRightChildEmpty()) {
-            throw new ChildNotFoundException();
-        } return rootNode.getLeftChild().getValue();
+        if (findNode(element).getLeftChild() == null) {
+            throw new ChildNotFoundException("Left child not found!");
+        } else {
+            return findNode(element).getLeftChild().getValue();
+        }
     }
 
 
 
     @Override
     public int getRightChild(int element) throws ChildNotFoundException {
-        if(rootNode.isLeftChildEmpty()) {
-            throw new ChildNotFoundException();
-        } return rootNode.getRightChild().getValue();
+        if(findNode(element).getRightChild() != null) {
+            return findNode(element).getRightChild().getValue();
+        } else throw new ChildNotFoundException("Right Child not found!");
+
     }
 
     @Override
     public int[] getSortedTreeAsc() {
-        sortedTree = new int[numberOfElements];
-        count = 0;
-        sortTreeAsc(rootNode);
-        return sortedTree;
+        return sortedTreeAsc;
     }
 
-    private void sortTreeAsc(Node node) {
-        if (!node.isLeftChildEmpty()) {
-            sortTreeAsc(node.getLeftChild());
+    private void sortTreeAsc() {
+        sortedTreeAsc = new int[numberOfElements];
+        count = 0;
+        addElementsToSortedTreeAsc(rootNode);
+    }
+
+    private void addElementsToSortedTreeAsc(Node node) {
+        if(!node.isLeftChildEmpty()) {
+            addElementsToSortedTreeAsc(node.getLeftChild());
         }
-        sortedTree[count] = node.getValue();
+        sortedTreeAsc[count] = node.getValue();
         count++;
-        if (!node.isRightChildEmpty()) {
-            sortTreeAsc(node.getRightChild());
+        if(!node.isRightChildEmpty()) {
+            addElementsToSortedTreeAsc(node.getRightChild());
         }
     }
 
 
     @Override
     public int[] getSortedTreeDesc() {
-        sortedTree = new int[numberOfElements];
-        count = 0;
-        sortTreeDesc(rootNode);
-        return sortedTree;
+        return sortedTreeDesc;
     }
 
 
-    private void sortTreeDesc(Node node) {
+    private void sortTreeDesc() {
+        sortedTreeDesc = new int[numberOfElements];
+        count = 0;
+        addElementsToSortedTreeDesc(rootNode);
+
+    }
+
+    private void addElementsToSortedTreeDesc(Node node) {
         if (!node.isRightChildEmpty()) {
-            sortTreeDesc(node.getRightChild());
+            addElementsToSortedTreeDesc(node.getRightChild());
         }
-        sortedTree[count] = node.getValue();
+        sortedTreeDesc[count] = node.getValue();
         count++;
         if (!node.isLeftChildEmpty()) {
-            sortTreeDesc(node.getLeftChild());
+            addElementsToSortedTreeDesc(node.getLeftChild());
         }
     }
 
     private void addNodeToTree(Node node, int element) {
-        if (element == node.getValue()) return;
-
         if (element <= node.getValue()) {
             if (node.isLeftChildEmpty()) {
                 node.setLeftChild(new Node(element));
+                numberOfElements++;
             } else {
                 addNodeToTree(node.getLeftChild(), element);
             }
@@ -114,6 +123,7 @@ public class BinaryTree implements BinaryTreeInterface {
         } else if (element > node.getValue()) {
             if (node.isRightChildEmpty()) {
                 node.setRightChild(new Node(element));
+                numberOfElements++;
             } else {
                 addNodeToTree(node.getRightChild(), element);
             }
